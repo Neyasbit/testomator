@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Test
+ * Class Question
  * @package App\Models
  */
-class Test extends Model
+class Question extends Model
 {
     protected $fillable = [
-        'name',
-        'description',
-        'theme_id',
+        'text_content',
+        'test_id',
     ];
 }
