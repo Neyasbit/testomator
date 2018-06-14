@@ -10,4 +10,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     });
 
     Route::resource('theme', 'ThemeController');
+    Route::resource('test', 'TestController');
 });

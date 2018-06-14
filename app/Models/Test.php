@@ -15,4 +15,20 @@ class Test extends Model
         'description',
         'theme_id',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function theme()
+    {
+        return $this->belongsTo(Theme::class);
+    }
 }

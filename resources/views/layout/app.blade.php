@@ -95,6 +95,11 @@
               <i class="mdi mdi-view-dashboard"></i> <span> Темы </span>
             </a>
           </li>
+          <li class="has-submenu">
+            <a href="{{ URL::route('test.index') }}">
+              <i class="mdi mdi-view-dashboard"></i> <span> Тесты </span>
+            </a>
+          </li>
         </ul>
         <!-- End navigation menu -->
       </div> <!-- end #navigation -->

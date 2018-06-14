@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Test;
+use App\Models\Theme;
 use Illuminate\Http\Request;
 
+/**
+ * Class TestController
+ * @package App\Http\Controllers
+ */
 class TestController extends Controller
 {
     /**
@@ -14,7 +19,9 @@ class TestController extends Controller
      */
     public function index()
     {
-        //
+        $tests = Test::with('theme')->withCount('questions')->paginate(5);
+
+        return view('test.index')->with('tests', $tests);
     }
 
     /**
@@ -24,7 +31,9 @@ class TestController extends Controller
      */
     public function create()
     {
-        //
+        $themes = Theme::all();
+
+        return view('test.create')->with('themes', $themes);
     }
 
     /**
@@ -35,7 +44,15 @@ class TestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only([
+            'name',
+            'description',
+            'theme_id',
+        ]);
+
+        Test::create($data);
+
+        return redirect()->route('test.index');
     }
 
     /**
@@ -57,7 +74,10 @@ class TestController extends Controller
      */
     public function edit(Test $test)
     {
-        //
+        return view('test.edit')->with([
+            'test' => $test,
+            'themes' => Theme::all(),
+        ]);
     }
 
     /**
@@ -69,7 +89,15 @@ class TestController extends Controller
      */
     public function update(Request $request, Test $test)
     {
-        //
+        $data = $request->only([
+            'name',
+            'description',
+            'theme_id',
+        ]);
+
+        $test->update($data);
+
+        return redirect()->route('test.index');
     }
 
     /**
