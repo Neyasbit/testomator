@@ -14,4 +14,12 @@ class Theme extends Model
         'name',
         'description',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tests()
+    {
+        return $this->hasMany(Test::class);
+    }
 }

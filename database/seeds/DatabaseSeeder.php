@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
 
         if (App::environment() != 'production') {
             $this->call(AdminSeeder::class);
+            $this->call(ThemeSeeder::class);
         }
     }
 }

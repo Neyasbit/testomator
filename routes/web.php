@@ -1,11 +1,13 @@
 <?php
 
-Route::get('/', function () {
-    return view('index');
+Route::group(['prefix' => 'auth'], function () {
+    Route::auth();
 });
 
-Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', 'Auth\LoginController@login');
-    Route::post('register', 'Auth\RegisterController@register');
-    Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('index');
+    });
+
+    Route::resource('theme', 'ThemeController');
 });

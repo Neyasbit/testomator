@@ -18,7 +18,11 @@ class ThemeController extends Controller
      */
     public function index()
     {
-        //
+        $themes = Theme::withCount('tests')->paginate(5);
+
+        return view('theme.index')->with([
+            'themes' => $themes,
+        ]);
     }
 
     /**
@@ -28,7 +32,7 @@ class ThemeController extends Controller
      */
     public function create()
     {
-        //
+        return view('theme.create');
     }
 
     /**
@@ -39,7 +43,14 @@ class ThemeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only([
+            'name',
+            'description',
+        ]);
+
+        Theme::create($data);
+
+        return redirect()->route('theme.index');
     }
 
     /**
@@ -61,7 +72,7 @@ class ThemeController extends Controller
      */
     public function edit(Theme $theme)
     {
-        //
+        return view('theme.edit')->with('theme', $theme);
     }
 
     /**
@@ -73,7 +84,9 @@ class ThemeController extends Controller
      */
     public function update(Request $request, Theme $theme)
     {
-        //
+        $theme->update($request->only(['name', 'description']));
+
+        return redirect()->route('theme.index');
     }
 
     /**
