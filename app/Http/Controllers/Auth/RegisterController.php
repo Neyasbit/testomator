@@ -61,12 +61,18 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         /** @var User $user */
-        $user = User::create([
+        $data = [
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'api_token' => Str::random(60),
-        ]);
+        ];
+
+        if (\App::environment() != 'production') {
+            $data['api_token'] = 'Xy4Tj3jxhz9Og0i1Ywf5VyYx1dKko8bk8HSzWQbrS9YRkBCbXqajQ9h4kfEg';
+        }
+
+        $user = User::create($data);
         $user->attachRole(Role::where('name', Role::USER_ROLE)->first());
 
         return $user;
