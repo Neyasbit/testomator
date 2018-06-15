@@ -24,7 +24,6 @@ class CreateQuestionFormAnswersTable extends Migration
             $table->boolean('is_correct_answer')->default(false)->index();
             $table->timestamps();
 
-            $table->unique(['question_id', 'question_form_id']);
             $table->foreign('question_id')
                 ->references('id')
                 ->on('questions')

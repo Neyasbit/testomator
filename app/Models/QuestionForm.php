@@ -13,6 +13,19 @@ class QuestionForm extends Model
     const CHECKBOX_TYPE = 'checkbox';
     const RADIO_BUTTON_TYPE = 'radio_button';
 
+    protected $fillable = [
+        'type',
+        'question_id',
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
+
     /**
      * @return array
      */

@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use Illuminate\Http\Request;
 
+/**
+ * Class QuestionController
+ * @package App\Http\Controllers
+ */
 class QuestionController extends Controller
 {
     /**
@@ -14,7 +18,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $questions = Question::all();
     }
 
     /**
