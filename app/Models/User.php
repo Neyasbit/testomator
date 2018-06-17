@@ -38,4 +38,12 @@ class User extends Authenticatable
         'remember_token',
         'api_token',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function testResults()
+    {
+        return $this->hasMany(TestResult::class);
+    }
 }
