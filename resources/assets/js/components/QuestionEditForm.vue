@@ -42,6 +42,10 @@
             <button type="button" class="btn btn-danger" @click="deleteQuestion">Удалить</button>
           </div>
 
+          <div class="form-group row">
+            <button type="button" class="btn btn-default" @click="goToQuestionsList">К списку вопросов</button>
+          </div>
+
         </form>
       </div>
     </div>
@@ -76,6 +80,10 @@
         type: Object,
         required: true,
       },
+      action: {
+        type: String,
+        required: true,
+      },
     },
     components: {
       VueSelect,
@@ -105,17 +113,27 @@
         this.$forceUpdate();
       },
       save() {
-        axios.patch(`/admin/question/${this.question.id}`, {
+        let promise;
+        const requestData = {
           text_content: this.question.text_content,
           form_type: this.selectedForm.value,
+          test_id: this.question.test_id,
           answers: this.question.form.answers.map(answer => ({
             id: answer.id,
             text_content: answer.text_content,
             is_correct_answer: answer.is_correct_answer,
           })),
-        })
+        };
+
+        if (this.action === 'create') {
+          promise = axios.post(`/admin/question`, requestData);
+        } else {
+          promise = axios.patch(`/admin/question/${this.question.id}`, requestData);
+        }
+
+        promise
           .then(() => {
-            swal('Успех!', 'информация обновлена', 'success');
+            swal('Успех!', this.action === 'create' ? 'Вопрос добавлен' : 'Информация сохранена', 'success');
           })
           .catch(error => {
             swal('Ошибка!', error.response.data.message, 'error');
@@ -126,7 +144,10 @@
           .then(() => {
             window.location.href = `/admin/test/${this.question.test_id}/questions`;
           });
-      }
+      },
+      goToQuestionsList() {
+        window.location.href = `/admin/test/${this.question.test_id}/questions`;
+      },
     },
   };
 </script>

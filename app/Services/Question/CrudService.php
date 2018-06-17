@@ -30,8 +30,32 @@ class CrudService
     }
 
     /**
-     * @param $formType
-     * @param $answers
+     * @param Request $request
+     * @return Question
+     * @throws \Throwable
+     */
+    public function create(Request $request)
+    {
+        return \DB::transaction(function () use ($request) {
+            /** @var Question $question */
+            $question = Question::create($request->only([
+                'text_content',
+                'test_id',
+            ]));
+            /** @var QuestionForm $formType */
+            $formType = $question->form()->create([
+                'type' => $request->get('form_type'),
+            ]);
+            $this->checkAnswers($formType->type, $request->get('answers'));
+            $this->saveAnswers($question, $request->get('answers'));
+
+            return $question;
+        });
+    }
+
+    /**
+     * @param string $formType
+     * @param array $answers
      * @throws \Exception
      */
     private function checkAnswers($formType, $answers)

@@ -45,9 +45,9 @@
           @endforeach
           </tbody>
         </table>
-        {{--<div>--}}
-          {{--<a href="{{ URL::route('question.create') }}" class="btn btn-info">Добавить</a>--}}
-        {{--</div>--}}
+        <div>
+          <a href="{{ URL::route('question.create', $test) }}" class="btn btn-info">Добавить</a>
+        </div>
       </div>
     </div>
   </div>

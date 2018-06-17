@@ -15,6 +15,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::get('test/{test}/questions', 'QuestionController@index')->name('question.index');
 
+    Route::get('test/{test}/question', 'QuestionController@create')->name('question.create');
+
+    Route::post('question', 'QuestionController@store')->name('question.store');
+
     Route::get('question/{question}', 'QuestionController@show')->name('question.show');
 
     Route::get('question/{question}/edit', 'QuestionController@edit')->name('question.edit');

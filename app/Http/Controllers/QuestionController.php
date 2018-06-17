@@ -6,6 +6,7 @@ use App\Models\Question;
 use App\Models\QuestionForm;
 use App\Models\Test;
 use App\Services\Question\CrudService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 /**
@@ -28,11 +29,24 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Test $test
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Test $test)
     {
-        //
+        $question = new Question([
+            'test_id' => $test->getKey(),
+        ]);
+        $questionForm = new QuestionForm([
+            'type' => QuestionForm::RADIO_BUTTON_TYPE,
+        ]);
+        $questionForm->setRelation('answers', new Collection());
+        $question->setRelation('form', $questionForm);
+
+        return view('question.create', [
+            'question' => $question,
+            'formTypes' => QuestionForm::types(),
+        ]);
     }
 
     /**
@@ -40,10 +54,14 @@ class QuestionController extends Controller
      *
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
     public function store(Request $request)
     {
-        //
+        $service = new CrudService();
+        $service->create($request);
+
+        return response()->json();
     }
 
     /**

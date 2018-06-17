@@ -13623,7 +13623,7 @@ exports = module.exports = __webpack_require__(9)(false);
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -13727,6 +13727,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -13754,6 +13758,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     formTypes: {
       type: Object,
+      required: true
+    },
+    action: {
+      type: String,
       required: true
     }
   },
@@ -13789,9 +13797,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$forceUpdate();
     },
     save: function save() {
-      __WEBPACK_IMPORTED_MODULE_1_axios___default.a.patch('/admin/question/' + this.question.id, {
+      var _this2 = this;
+
+      var promise = void 0;
+      var requestData = {
         text_content: this.question.text_content,
         form_type: this.selectedForm.value,
+        test_id: this.question.test_id,
         answers: this.question.form.answers.map(function (answer) {
           return {
             id: answer.id,
@@ -13799,18 +13811,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             is_correct_answer: answer.is_correct_answer
           };
         })
-      }).then(function () {
-        __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default()('Успех!', 'информация обновлена', 'success');
+      };
+
+      if (this.action === 'create') {
+        promise = __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/admin/question', requestData);
+      } else {
+        promise = __WEBPACK_IMPORTED_MODULE_1_axios___default.a.patch('/admin/question/' + this.question.id, requestData);
+      }
+
+      promise.then(function () {
+        __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default()('Успех!', _this2.action === 'create' ? 'Вопрос добавлен' : 'Информация сохранена', 'success');
       }).catch(function (error) {
         __WEBPACK_IMPORTED_MODULE_2_sweetalert2___default()('Ошибка!', error.response.data.message, 'error');
       });
     },
     deleteQuestion: function deleteQuestion() {
-      var _this2 = this;
+      var _this3 = this;
 
       __WEBPACK_IMPORTED_MODULE_1_axios___default.a.delete('/admin/question/' + this.question.id).then(function () {
-        window.location.href = '/admin/test/' + _this2.question.test_id + '/questions';
+        window.location.href = '/admin/test/' + _this3.question.test_id + '/questions';
       });
+    },
+    goToQuestionsList: function goToQuestionsList() {
+      window.location.href = '/admin/test/' + this.question.test_id + '/questions';
     }
   }
 });
@@ -14181,6 +14204,18 @@ var render = function() {
                   on: { click: _vm.deleteQuestion }
                 },
                 [_vm._v("Удалить")]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default",
+                  attrs: { type: "button" },
+                  on: { click: _vm.goToQuestionsList }
+                },
+                [_vm._v("К списку вопросов")]
               )
             ])
           ],
