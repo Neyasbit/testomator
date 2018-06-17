@@ -7,4 +7,6 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('theme', 'Api\ThemeController@index');
+
+    Route::get('theme/{theme}/tests', 'Api\TestController@index');
 });
