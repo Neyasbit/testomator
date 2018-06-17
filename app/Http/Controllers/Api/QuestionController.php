@@ -17,7 +17,7 @@ class QuestionController extends Controller
      */
     public function index(Test $test)
     {
-        $questions = $test->questions;
+        $questions = $test->questions()->with('formAnswers');
 
         return response()->json([
             'data' => $questions,
