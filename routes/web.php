@@ -10,5 +10,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     });
 
     Route::resource('theme', 'ThemeController');
+
     Route::resource('test', 'TestController');
+
+    Route::get('test/{test}/questions', 'QuestionController@index')->name('question.index');
+
+    Route::get('question/{question}', 'QuestionController@show')->name('question.show');
+
+    Route::get('question/{question}/edit', 'QuestionController@edit')->name('question.edit');
+
+    Route::patch('question/{question}', 'QuestionController@update')->name('question.update');
 });

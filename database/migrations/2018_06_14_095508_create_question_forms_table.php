@@ -19,7 +19,7 @@ class CreateQuestionFormsTable extends Migration
     {
         Schema::create('question_forms', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('type', QuestionForm::types())->index();
+            $table->enum('type', array_keys(QuestionForm::types()))->index();
             $table->unsignedInteger('question_id')->index();
             $table->timestamps();
 

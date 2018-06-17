@@ -8,7 +8,7 @@ $factory->define(QuestionForm::class, function (Faker $faker) {
     $question = factory(\App\Models\Question::class)->create();
 
     return [
-        'type' => $faker->randomElement(QuestionForm::types()),
+        'type' => $faker->randomElement(array_keys(QuestionForm::types())),
         'question_id' => $question->getKey(),
     ];
 });

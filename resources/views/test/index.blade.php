@@ -25,7 +25,7 @@
           @foreach($tests as $test)
             <tr>
               <td>
-                <a href="{{ URL::route('test.edit', $test) }}">
+                <a href="{{ URL::route('test.show', $test) }}">
                   {{ $test->name }}
                 </a>
               </td>

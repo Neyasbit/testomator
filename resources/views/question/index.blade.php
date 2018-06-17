@@ -25,28 +25,29 @@
           </tr>
           </thead>
           <tbody>
-          @foreach($questions as $question)
+          @foreach($test->questions as $question)
             <tr>
               <td>
-                {{ $question->text_content }}
+                <a href="{{ URL::route('question.show', $question) }}">
+                  {{ $question->text_content }}
+                </a>
               </td>
               <td>
-                {{ $question->form->type }}
+                {{ $question->display_type }}
               </td>
               <td>
-                {{ $question->form->answers_count }}
+                {{ $question->formAnswers()->count() }}
               </td>
               <td>
-                {{ $question->form->right_answer }}
+                {{ $question->correct_answers->count() > 1 ? 'Несколько правильных ответов' : $question->correct_answers->first()->text_content }}
               </td>
             </tr>
           @endforeach
           </tbody>
         </table>
-        {{ $tests->links() }}
-        <div>
-          <a href="{{ URL::route('question.create') }}" class="btn btn-info">Добавить</a>
-        </div>
+        {{--<div>--}}
+          {{--<a href="{{ URL::route('question.create') }}" class="btn btn-info">Добавить</a>--}}
+        {{--</div>--}}
       </div>
     </div>
   </div>

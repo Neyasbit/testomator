@@ -13,6 +13,8 @@ function adminAssets() {
 
   mix.scripts('resources/assets/js/modernizr.min.js', 'public/js/modernizr.min.js');
 
+  mix.js('resources/assets/js/app.js', 'public/js/app.js');
+
   mix.copyDirectory('resources/assets/images/', 'public/images');
 
   mix.sass('resources/assets/sass/icons.scss', 'public/css/icons.css');

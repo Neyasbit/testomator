@@ -18,5 +18,10 @@
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "sweetalert2": "^7.22.2",
+        "vue-select": "^2.4.0",
+        "vue-switches": "^2.0.1"
     }
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Models\QuestionForm;
+use App\Models\Test;
+use App\Services\Question\CrudService;
 use Illuminate\Http\Request;
 
 /**
@@ -14,11 +17,12 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Test $test
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Test $test)
     {
-        $questions = Question::all();
+        return view('question.index')->with('test', $test);
     }
 
     /**
@@ -50,7 +54,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        return view('question.show', ['question' => $question]);
     }
 
     /**
@@ -61,19 +65,29 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        $forms = QuestionForm::types();
+        $question->load(['form', 'form.answers']);
+
+        return view('question.edit', [
+            'question' => $question,
+            'formTypes' => $forms,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Question  $question
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Question $question
      * @return \Illuminate\Http\Response
+     * @throws \Throwable
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $service = new CrudService();
+        $service->update($request, $question);
+
+        return response()->json();
     }
 
     /**

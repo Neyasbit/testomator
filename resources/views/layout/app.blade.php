@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
   <meta content="Сервис проведения тестирования и анализа результатов" name="description"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- App favicon -->
   <link rel="shortcut icon" href="/images/favicon.ico">
@@ -49,21 +50,6 @@
               <img src="/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
             </a>
             <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
-
-              <!-- item-->
-              <a href="javascript:void(0);" class="dropdown-item notify-item">
-                <i class="ti-user m-r-5"></i> Profile
-              </a>
-
-              <!-- item-->
-              <a href="javascript:void(0);" class="dropdown-item notify-item">
-                <i class="ti-settings m-r-5"></i> Settings
-              </a>
-
-              <!-- item-->
-              <a href="javascript:void(0);" class="dropdown-item notify-item">
-                <i class="ti-lock m-r-5"></i> Lock screen
-              </a>
 
               <!-- item-->
               {{ Form::open(['route' => 'logout', 'method' => 'post']) }}
@@ -110,7 +96,7 @@
 
 
 <div class="wrapper">
-  <div class="container-fluid">
+  <div class="container-fluid" id="vue-app">
 
     @yield('content')
 
@@ -133,6 +119,7 @@
 <!-- End Footer -->
 
 {{ Html::script(mix('js/scripts.js')) }}
+{{ Html::script(mix('js/app.js')) }}
 
 </body>
 </html>

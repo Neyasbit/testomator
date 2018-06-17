@@ -14,4 +14,44 @@ class Question extends Model
         'text_content',
         'test_id',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function form()
+    {
+        return $this->hasOne(QuestionForm::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function formAnswers()
+    {
+        return $this->hasMany(QuestionFormAnswer::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeAttribute()
+    {
+        return $this->form->type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayTypeAttribute()
+    {
+        return $this->form->display_type;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|QuestionFormAnswer[]
+     */
+    public function getCorrectAnswersAttribute()
+    {
+        return $this->formAnswers()->where('is_correct_answer', true)->get();
+    }
 }

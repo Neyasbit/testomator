@@ -27,13 +27,29 @@ class QuestionForm extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answers()
+    {
+        return $this->hasMany(QuestionFormAnswer::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDisplayTypeAttribute()
+    {
+        return self::types()[$this->type];
+    }
+
+    /**
      * @return array
      */
     public static function types()
     {
         return [
-            self::CHECKBOX_TYPE,
-            self::RADIO_BUTTON_TYPE,
+            self::CHECKBOX_TYPE => 'Несколько правильных ответов',
+            self::RADIO_BUTTON_TYPE => 'Один правильный ответ',
         ];
     }
 }
