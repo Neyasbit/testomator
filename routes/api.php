@@ -9,4 +9,6 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('theme', 'Api\ThemeController@index');
 
     Route::get('theme/{theme}/tests', 'Api\TestController@index');
+
+    Route::get('test/{test}/questions', 'Api\QuestionController@index');
 });
