@@ -60,7 +60,9 @@ class CrudService
      */
     private function saveAnswers(Question $question, $answers)
     {
-        QuestionFormAnswer::whereNotIn('id', collect($answers)->pluck('id')->toArray())->delete();
+        QuestionFormAnswer::whereNotIn('id', collect($answers)->pluck('id')->toArray())
+            ->where('question_id', $question->getKey())
+            ->delete();
 
         foreach ($answers as $answer) {
             if (empty($answer['text_content'])) {

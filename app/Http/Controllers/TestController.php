@@ -103,11 +103,14 @@ class TestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Test  $test
+     * @param  \App\Models\Test $test
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Test $test)
     {
-        //
+        $test->delete();
+
+        return redirect()->route('test.index');
     }
 }

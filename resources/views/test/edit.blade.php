@@ -35,6 +35,14 @@
         </div>
 
         {{ Form::close() }}
+
+        {{ Form::open(['route' => ['test.destroy', $test], 'method' => 'delete', 'class' => 'form-horizontal']) }}
+
+        <div class="form-group row">
+          <input type="submit" class="btn btn-danger" value="Удалить">
+        </div>
+
+        {{ Form::close() }}
       </div>
     </div>
   </div>

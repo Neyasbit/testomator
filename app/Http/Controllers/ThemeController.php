@@ -92,11 +92,14 @@ class ThemeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Theme  $theme
+     * @param  \App\Models\Theme $theme
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function destroy(Theme $theme)
     {
-        //
+        $theme->delete();
+
+        return redirect()->route('theme.index');
     }
 }

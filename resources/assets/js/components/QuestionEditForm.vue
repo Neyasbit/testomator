@@ -38,6 +38,10 @@
             <button type="button" class="btn btn-success" @click="save">Сохранить</button>
           </div>
 
+          <div class="form-group row">
+            <button type="button" class="btn btn-danger" @click="deleteQuestion">Удалить</button>
+          </div>
+
         </form>
       </div>
     </div>
@@ -117,6 +121,12 @@
             swal('Ошибка!', error.response.data.message, 'error');
           });
       },
+      deleteQuestion() {
+        axios.delete(`/admin/question/${this.question.id}`)
+          .then(() => {
+            window.location.href = `/admin/test/${this.question.test_id}/questions`;
+          });
+      }
     },
   };
 </script>

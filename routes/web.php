@@ -20,4 +20,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('question/{question}/edit', 'QuestionController@edit')->name('question.edit');
 
     Route::patch('question/{question}', 'QuestionController@update')->name('question.update');
+
+    Route::delete('question/{question}', 'QuestionController@destroy')->name('question.destroy');
 });
